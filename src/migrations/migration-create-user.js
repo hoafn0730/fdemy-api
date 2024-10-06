@@ -10,6 +10,7 @@ module.exports = {
                     primaryKey: true,
                     type: Sequelize.INTEGER,
                 },
+
                 username: {
                     type: Sequelize.STRING,
                     unique: true,
@@ -31,18 +32,6 @@ module.exports = {
                     type: Sequelize.STRING,
                 },
                 bio: {
-                    type: Sequelize.STRING,
-                },
-                facebookUrl: {
-                    type: Sequelize.STRING,
-                },
-                youtubeUrl: {
-                    type: Sequelize.STRING,
-                },
-                instagramUrl: {
-                    type: Sequelize.STRING,
-                },
-                linkedinUrl: {
                     type: Sequelize.STRING,
                 },
                 role: {

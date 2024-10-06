@@ -16,6 +16,21 @@ module.exports = {
                 courseId: {
                     type: Sequelize.INTEGER,
                 },
+                nameOnCard: {
+                    type: Sequelize.STRING,
+                },
+                cardNumber: {
+                    type: Sequelize.STRING,
+                },
+                expiryDate: {
+                    type: Sequelize.DATE,
+                },
+                cvv: {
+                    type: Sequelize.STRING,
+                },
+                couponCode: {
+                    type: Sequelize.STRING,
+                },
                 total: {
                     type: Sequelize.INTEGER,
                     defaultValue: 0,

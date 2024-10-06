@@ -136,17 +136,12 @@ class CourseController extends BaseController {
         const type = req.query.type;
         const page = req.query.page;
         let data;
-        const keywords = decodeURIComponent(query)
-            .split(' ')
-            .map((keyword) => `%${keyword}%`);
 
         if (type === 'less') {
             data = await courseService.find({
                 where: {
                     title: {
-                        [Op.or]: keywords.map((keyword) => ({
-                            [Op.like]: keyword,
-                        })),
+                        [Op.iLike]: `%${query}%`,
                     },
                 },
                 limit: 5,
@@ -156,9 +151,7 @@ class CourseController extends BaseController {
                 page: page ?? 1,
                 search: {
                     title: {
-                        [Op.or]: keywords.map((keyword) => ({
-                            [Op.like]: keyword,
-                        })),
+                        [Op.iLike]: `%${query}%`,
                     },
                 },
             });
