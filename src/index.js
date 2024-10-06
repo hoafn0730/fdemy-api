@@ -64,7 +64,7 @@ app.use(
         saveUninitialized: true,
         resave: true,
         proxy: true, // if you do SSL outside of node.
-        cookie: { expires: 300 * 1000 },
+        cookie: { expires: 300 * 1000, domain: '.fdemy.id.vn' },
         expiration: 300 * 1000, //
     }),
 );
