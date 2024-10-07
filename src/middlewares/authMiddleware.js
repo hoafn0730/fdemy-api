@@ -116,7 +116,7 @@ const checkUserLogin = async (req, res, next) => {
     if (cookies?.accessToken || tokenFromHeader) {
         const token = cookies?.accessToken || tokenFromHeader;
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        const resData = await axios.post('https://sso-api.fdemy.id.vn/api/v1/auth/verify-services');
+        const resData = await axios.post(process.env.SSO_BACKEND_URL + '/api/v1/auth/verify-services');
 
         if (resData && resData.data.statusCode === 200) {
             req.user = resData.data.data;
