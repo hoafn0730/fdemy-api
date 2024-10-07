@@ -86,6 +86,12 @@ const authenticate = async (req, res, next) => {
                     data: '',
                 });
             }
+        } else if (!cookies?.accessToken && cookies?.refreshToken) {
+            return res.status(405).json({
+                statusCode: 405,
+                message: 'TokenExpiredError & Need to retry new token',
+                data: '',
+            });
         } else {
             console.log('Unauthorized');
             return res.status(401).json({
