@@ -9,6 +9,7 @@ const trackService = require('~/services/trackService');
 const BaseController = require('./BaseController');
 const registerService = require('~/services/registerService');
 const upload = require('~/middlewares/uploadMiddleware');
+const userService = require('~/services/userService');
 
 class CourseController extends BaseController {
     constructor() {
@@ -84,13 +85,22 @@ class CourseController extends BaseController {
         const steps = await stepService.find({ where: { trackId: track.id } });
         track.steps = steps.data;
         data.data.track = track;
+        console.log(req?.user?.id);
+
+        const user = await userService.find({
+            findOne: true,
+            where: {
+                uid: req?.user?.id + '',
+            },
+            raw: true,
+        });
 
         let register;
-        if (req?.user?.id) {
+        if (user) {
             // check dk
             register = await registerService.find({
                 findOne: true,
-                where: { courseId: data.data.id, userId: req?.user?.id },
+                where: { courseId: data.data.id, userId: user.data?.id },
             });
         }
 

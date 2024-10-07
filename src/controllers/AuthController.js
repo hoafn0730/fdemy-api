@@ -2,10 +2,11 @@ const userService = require('~/services/userService');
 
 class AuthController {
     getCurrentUser = async (req, res, next) => {
+        const user = await userService.find({ findOne: true, where: { uid: req.user.id + '' } });
         return res.status(200).json({
             statusCode: 200,
             message: 'ok',
-            data: req.user,
+            data: { ...req.user, uid: req.user.id, id: user.data.id },
         });
     };
     updateProfile = async (req, res, next) => {

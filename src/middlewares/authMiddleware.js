@@ -115,12 +115,15 @@ const checkUserLogin = async (req, res, next) => {
 
     if (cookies?.accessToken || tokenFromHeader) {
         const token = cookies?.accessToken || tokenFromHeader;
-        const decoded = jwtService.verifyToken(token);
-        req.user = decoded;
-        next();
-    } else {
-        next();
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        const resData = await axios.post('https://sso-api.fdemy.id.vn/api/v1/auth/verify-services');
+
+        if (resData && resData.data.statusCode === 200) {
+            req.user = resData.data.data;
+        }
     }
+
+    next();
 };
 
 module.exports = { authenticateUser, authenticate, checkUserLogin };
