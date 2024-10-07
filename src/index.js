@@ -19,6 +19,7 @@ const { sequelize, connect } = require('./config/connection');
 const helpers = require('./helpers/handlebars');
 const socketService = require('./services/socketService');
 const errorHandlingMiddleware = require('./middlewares/errorHandlingMiddleware');
+const { corsOptions } = require('./config/cors');
 
 const app = express();
 const server = http.createServer(app);
@@ -44,20 +45,9 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
 // app.use(helmet());
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(
-    cors({
-        origin: [
-            'http://localhost:3000',
-            'http://localhost:3001',
-            'http://localhost:5173',
-            'https://codelearn-sigma.vercel.app',
-            'https://fdemy.id.vn',
-        ],
-        credentials: true,
-    }),
-);
+app.use(cors(corsOptions));
 app.use(
     session({
         secret: 'flashblog',
