@@ -85,7 +85,6 @@ class CourseController extends BaseController {
         const steps = await stepService.find({ where: { trackId: track.id } });
         track.steps = steps.data;
         data.data.track = track;
-        console.log(req?.user?.id);
 
         const user = await userService.find({
             findOne: true,
